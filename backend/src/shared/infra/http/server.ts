@@ -7,16 +7,16 @@ import { errors } from 'celebrate'
 import 'express-async-errors'
 
 import AppError from '@shared/errors/AppError'
-// import routes from '@shared/infra/http/routes'
+import routes from '@shared/infra/http/routes'
 
-// import '@shared/infra/typeorm'
+import '@shared/infra/typeorm'
 import '@shared/container'
 
 const app = express()
 app.use(cors())
 
 app.use(express.json())
-// app.use(routes)
+app.use(routes)
 
 app.use(errors())
 
@@ -33,10 +33,6 @@ app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
     status: 'error',
     message: 'Internal server error',
   })
-})
-
-app.get('/', (req, res) => {
-  return res.json({ message: 'teste' })
 })
 
 app.listen(3333, () => {
