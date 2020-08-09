@@ -11,4 +11,4 @@ class BCryptHashProvider implements IHashProvider {
   }
 }
 
-export default
+export default BCryptHashProvider
