@@ -1,0 +1,10 @@
+version: "3"
+services:
+  db-postgres:
+    container_name: aware_postgres
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=aware_pg
+    ports:
+      - 5432:5432
