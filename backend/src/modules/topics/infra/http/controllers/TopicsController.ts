@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
 import CreateTopicService from '@modules/topics/services/CreateTopicService'
+import ListTopicFromLocationService from '@modules/topics/services/ListTopicFromLocationService'
 
 export default class TopicsController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -18,5 +19,21 @@ export default class TopicsController {
     })
 
     return response.json(topic)
+  }
+
+  public async listByCoordinates(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const { latitude, longitude, range } = request.body
+    const listTopicByCoordinateService = container.resolve(
+      ListTopicFromLocationService,
+    )
+    const topics = await listTopicByCoordinateService.execute({
+      latitude,
+      longitude,
+      range,
+    })
+    return response.json(topics)
   }
 }

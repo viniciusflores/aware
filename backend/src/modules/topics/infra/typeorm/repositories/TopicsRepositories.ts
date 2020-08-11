@@ -2,6 +2,7 @@ import { Repository, getRepository } from 'typeorm'
 import ITopicsRepository from '@modules/topics/repositories/ITopicsRepository'
 import ICreateTopicDTO from '@modules/topics/dtos/ICreateTopicDTO'
 import Topic from '@modules/topics/infra/typeorm/entities/Topics'
+import IFindTopicByCoordinatesDTO from '@modules/topics/dtos/IFindTopicByCoordinatesDTO'
 
 class TopicsRepositories implements ITopicsRepository {
   private ormRepository: Repository<Topic>
@@ -28,6 +29,22 @@ class TopicsRepositories implements ITopicsRepository {
     await this.ormRepository.save(topic)
 
     return topic
+  }
+
+  public async listByCoordinates({
+    latitude,
+    longitude,
+    range,
+  }: IFindTopicByCoordinatesDTO): Promise<Topic[]> {
+    let topics: Topic[]
+    topics = await this.ormRepository.find({
+      where: {
+        latitude,
+        longitude,
+      },
+    })
+
+    return topics
   }
 }
 

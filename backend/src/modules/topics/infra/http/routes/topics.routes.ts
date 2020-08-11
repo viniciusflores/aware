@@ -22,4 +22,15 @@ topicsRouter.post(
   topicsController.create,
 )
 
+topicsRouter.get(
+  '/',
+  celebrate({
+    [Segments.BODY]: {
+      latitude: Joi.string().required(),
+      longitude: Joi.string().required(),
+    },
+  }),
+  topicsController.listByCoordinates,
+)
+
 export default topicsRouter
