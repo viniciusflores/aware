@@ -1,10 +1,37 @@
 import React from 'react'
-import { Container } from './styles'
+import { Container, Header, Content, Footer } from './styles'
 
 const Home: React.FC = () => {
   return (
     <Container>
-      <h1>Home Page</h1>
+      <Header>
+        <h1>Home</h1>
+      </Header>
+      <Content>
+        <p>twiit</p>
+        <p>twiit</p>
+        <p>twiit</p>
+        <p>twiit</p>
+        <p>twiit</p>
+        <p>twiit</p>
+        <p>twiit</p>
+        <p>twiit</p>
+        <p>twiit</p>
+        <p>twiit</p>
+        <p>twiit</p>
+        <p>twiit</p>
+        <p>twiit</p>
+        <p>twiit</p>
+        <p>twiit</p>
+        <p>twiit</p>
+        <p>twiit</p>
+        <p>twiit</p>
+        <p>twiit</p>
+        <p>twiit</p>
+      </Content>
+      <Footer>
+        <p>botao</p>
+      </Footer>
     </Container>
   )
 }
