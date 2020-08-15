@@ -1,19 +1,65 @@
 import React, { useCallback, useRef } from 'react'
 import { FiMail, FiLock } from 'react-icons/fi'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { FormHandles } from '@unform/core'
 import { Form } from '@unform/web'
+import * as Yup from 'yup'
 
 import logoImg from '../../assets/laranjo.png'
 import Button from '../../components/ButtonSign'
 import Input from '../../components/InputSign'
+import { useToast } from '../../hooks/toast'
+import { useAuth } from '../../hooks/auth'
+import getValidationErrors from '../../util/getValidationsErrors'
 import { Container, Content } from './styles'
+
+interface SignInFormData {
+  email: string
+  password: string
+}
 
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null)
-  const handleSubmit = useCallback(() => {
-    alert('fez o submit')
-  }, [])
+  const { signIn } = useAuth()
+  const { addToast } = useToast()
+  const history = useHistory()
+
+  const handleSubmit = useCallback(
+    async (data: SignInFormData) => {
+      try {
+        formRef.current?.setErrors({})
+
+        const schema = Yup.object().shape({
+          email: Yup.string()
+            .required('E-mail required')
+            .email('Fill a valid e-mail'),
+          password: Yup.string().required('Password required'),
+        })
+
+        await schema.validate(data, { abortEarly: false })
+
+        await signIn({
+          email: data.email,
+          password: data.password,
+        })
+
+        history.push('/')
+      } catch (error) {
+        if (error instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(error)
+          formRef.current?.setErrors(errors)
+          return
+        }
+
+        addToast({
+          type: 'error',
+          title: 'Error in authentication',
+          description: 'There was an error signing in, check your credentials',
+        })
+      }
+    },
+    [signIn, addToast, history],
+  )
 
   return (
     <Container>
