@@ -36,7 +36,7 @@ const Toast: React.FC<ToastProps> = ({ message, style }) => {
       data-cy="toast-container"
     >
       {icons[message.type || 'info']}
-      ba
+
       <div>
         <strong data-cy={message.title}>{message.title}</strong>
         {message.description && <p>{message.description}</p>}
