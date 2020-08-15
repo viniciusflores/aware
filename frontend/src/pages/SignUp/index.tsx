@@ -8,6 +8,7 @@ import * as Yup from 'yup'
 import logoImg from '../../assets/laranjo.png'
 import Button from '../../components/ButtonSign'
 import Input from '../../components/InputSign'
+import { useAuth } from '../../hooks/auth'
 import { useToast } from '../../hooks/toast'
 import getValidationErrors from '../../util/getValidationsErrors'
 import { Container, Content } from './styles'
@@ -20,6 +21,7 @@ interface SignUpFormData {
 
 const SignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null)
+  const { signIn } = useAuth()
   const { addToast } = useToast()
   const history = useHistory()
 
@@ -40,12 +42,17 @@ const SignUp: React.FC = () => {
 
         await api.post('/users', data)
 
-        history.push('/home')
+        await signIn({
+          email: data.email,
+          password: data.password,
+        })
+
+        history.push('/')
 
         addToast({
           type: 'success',
           title: 'Successful registration!',
-          description: 'You can now login',
+          description: 'Be aware now',
         })
       } catch (error) {
         if (error instanceof Yup.ValidationError) {
@@ -64,7 +71,7 @@ const SignUp: React.FC = () => {
         })
       }
     },
-    [addToast, history],
+    [signIn, addToast, history],
   )
 
   return (
