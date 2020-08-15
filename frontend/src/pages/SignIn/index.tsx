@@ -76,7 +76,7 @@ const SignIn: React.FC = () => {
             type="password"
           />
 
-          <Button type="submit" dataTestId="btn-entrar">
+          <Button type="submit" dataTestId="btn-login">
             Log In
           </Button>
 
