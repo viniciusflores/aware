@@ -14,7 +14,7 @@ const Button: React.FC<ButtonProps> = ({
   ...rest
 }) => (
   <Container type="button" {...rest} data-cy={dataTestId}>
-    {loading ? 'Carregando...' : children}
+    {loading ? 'Loading...' : children}
   </Container>
 )
 
