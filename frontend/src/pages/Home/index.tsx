@@ -1,12 +1,12 @@
 import React from 'react'
 import { Container } from './styles'
 
-const Dashboard: React.FC = () => {
+const Home: React.FC = () => {
   return (
     <Container>
-      <h1>Dashboard Page</h1>
+      <h1>Home Page</h1>
     </Container>
   )
 }
 
-export default Dashboard
+export default Home
