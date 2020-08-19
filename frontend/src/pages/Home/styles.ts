@@ -1,64 +1,95 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  width: 100%;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
 `
 
 export const Header = styled.header`
   display: flex;
-  top: 0;
-  border-bottom: 2px solid gray;
   flex-direction: row;
-  justify-content: space-between;
-  align-content: center;
   align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
 
   svg {
     margin: 0 20px;
+    height: 25px;
+    width: 25px;
+  }
+
+  svg.profile {
+    color: #fff;
+    background: #312e38;
+    border-radius: 50%;
   }
 `
 
 export const Content = styled.div`
   display: flex;
-  flex-direction: row;
-  margin-top: 10px;
-
-  div {
-    display: flex;
-    flex-direction: column;
-    margin-left: 5px;
-
-    span {
-      display: flex;
-      flex-direction: row;
-
-      p {
-        font-weight: bold;
-        margin-right: 5px;
-        font-size: 18px;
-      }
-    }
-  }
+  margin: 10px 10px 0;
 
   img {
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 48px;
+    margin-right: 10px;
+  }
+
+  div.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    strong {
+      display: flex;
+      flex-direction: row;
+      font-weight: bold;
+
+      span {
+        display: flex;
+        flex-direction: row;
+        font-weight: normal;
+        color: #6e677e;
+        font-size: 14px;
+        margin-left: 5px;
+      }
+
+      span.separator {
+        width: 2px;
+        height: 2px;
+        border-radius: 50px;
+        background: #222;
+      }
+    }
+
+    p {
+      font-size: 14px;
+    }
+
+    div.icons {
+      display: flex;
+
+      span {
+        margin-left: 20px;
+        display: flex;
+        align-items: center;
+      }
+
+      span:first-child {
+        margin-left: 0;
+      }
+    }
   }
 `
 
 export const Footer = styled.footer`
   display: flex;
   flex-direction: row;
-  bottom: 0;
   justify-content: space-around;
-  border-top: 2px solid gray;
+  box-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);
+  margin-top: 15px;
 
   svg {
     margin-top: 10px;
   }
-`
-export const NewTweet = styled.button`
-  width: 56px;
-  height: 56px;
 `
