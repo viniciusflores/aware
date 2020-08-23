@@ -12,6 +12,11 @@ export const Header = styled.header`
   justify-content: space-between;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
 
+  /* position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%; */
+
   svg {
     margin: 0 20px;
     height: 25px;
@@ -25,10 +30,14 @@ export const Header = styled.header`
   }
 `
 
+export const ContentGroup = styled.div``
+
 export const Content = styled.div`
   display: flex;
   margin: 10px 10px 0;
-
+/* position: relative;
+  min-height: 100%;
+  flex: 0; */
   img {
     width: 48px;
     height: 48px;
@@ -88,6 +97,12 @@ export const Footer = styled.footer`
   justify-content: space-around;
   box-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);
   margin-top: 15px;
+
+  /* position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding-bottom: 20px; */
 
   svg {
     margin-top: 10px;

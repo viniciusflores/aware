@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   FiUser,
   FiFeather,
@@ -11,10 +11,43 @@ import {
   FiSend,
 } from 'react-icons/fi'
 import logoImg from '../../assets/laranjo.png'
-import { Container, Header, Content, Footer } from './styles'
+import { Container, Header, ContentGroup, Content, Footer } from './styles'
 
 const Home: React.FC = () => {
   const abc = false
+  const [locationPermission, setLocationPermission] = useState(false)
+  const [accuracy, setAccuracy] = useState(0)
+  const [latitude, setLatitude] = useState(0)
+  const [longitude, setLongitude] = useState(0)
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+        setLocationPermission(true)
+        setAccuracy(position.coords.accuracy)
+        setLatitude(position.coords.latitude)
+        setLongitude(position.coords.longitude)
+      },
+      function showError(error) {
+        setLocationPermission(false)
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            console.log('User denied the request for Geolocation.')
+            break
+          case error.POSITION_UNAVAILABLE:
+            console.log('Location information is unavailable.')
+            break
+          case error.TIMEOUT:
+            console.log('The request to get user location timed out.')
+            break
+          default:
+            console.log('The request to get user location error default')
+            break
+        }
+      },
+    )
+  }, [])
+
   return (
     <Container>
       <Header>
@@ -22,6 +55,7 @@ const Home: React.FC = () => {
         <h1> Home </h1>
         <FiFeather size={20} />
       </Header>
+      <ContentGroup>
       <Content>
         <img src={logoImg} alt="Lorem Ipsum" />
         <div className="content">
@@ -98,7 +132,7 @@ const Home: React.FC = () => {
           )}
         </div>
       </Content>
-
+      </ContentGroup>
       <Footer>
         <FiHome size={20} />
         <FiSearch size={20} />
