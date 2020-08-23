@@ -8,14 +8,17 @@ export default createGlobalStyle`
     outline: 0;
   }
 
-  body {
-    background: #fff;
+  html, body {
+    height: 100%;
+    width: 100%;
+    background: #e6ecf0;
     color: #312E38;
-    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility !important;
+    -webkit-font-smoothing: antialiased !important;
   }
 
   border, input, button {
-    font-family: 'Roboto Slab', serif;
+    font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
     font-size: 16px;
   }
 
