@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import {
   FiUser,
   FiFeather,
@@ -53,85 +54,87 @@ const Home: React.FC = () => {
       <Header>
         <FiUser size={20} className="profile" />
         <h1> Home </h1>
-        <FiFeather size={20} />
+        <Link to="/post/create">
+          <FiFeather size={20} />
+        </Link>
       </Header>
       <ContentGroup>
-      <Content>
-        <img src={logoImg} alt="Lorem Ipsum" />
-        <div className="content">
-          <strong>
-            Lorem Ipsum
-            <span> @lorem_ipsum </span>
-            <span className="separator" />
-            <span> 5 m </span>
-          </strong>
-          <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry.Lorem Ipsum has been the industry is standard dummy text
-            ever since the 1500 s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book.It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged.It was popularised in the 1960 s
-            with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software like Aldus
-            PageMaker including versions of Lorem Ipsum.
-          </p>
-          {abc && (
-            <div className="icons">
-              <span>
-                <FiHeart />
-                10
-              </span>
-              <span>
-                <FiMessageCircle />
-                10
-              </span>
-              <span>
-                <FiSend />
-                10
-              </span>
-            </div>
-          )}
-        </div>
-      </Content>
-      <Content>
-        <img src={logoImg} alt="Lorem Ipsum" />
-        <div className="content">
-          <strong>
-            Lorem Ipsum
-            <span> @lorem_ipsum </span>
-            <span className="separator" />
-            <span> 5 m </span>
-          </strong>
-          <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry.Lorem Ipsum has been the industry is standard dummy text
-            ever since the 1500 s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book.It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged.It was popularised in the 1960 s
-            with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software like Aldus
-            PageMaker including versions of Lorem Ipsum.
-          </p>
-          {abc && (
-            <div className="icons">
-              <span>
-                <FiHeart />
-                10
-              </span>
-              <span>
-                <FiMessageCircle />
-                10
-              </span>
-              <span>
-                <FiSend />
-                10
-              </span>
-            </div>
-          )}
-        </div>
-      </Content>
+        <Content>
+          <img src={logoImg} alt="Lorem Ipsum" />
+          <div className="content">
+            <strong>
+              Lorem Ipsum
+              <span> @lorem_ipsum </span>
+              <span className="separator" />
+              <span> 5 m </span>
+            </strong>
+            <p>
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry.Lorem Ipsum has been the industry is standard dummy text
+              ever since the 1500 s, when an unknown printer took a galley of
+              type and scrambled it to make a type specimen book.It has survived
+              not only five centuries, but also the leap into electronic
+              typesetting, remaining essentially unchanged.It was popularised in
+              the 1960 s with the release of Letraset sheets containing Lorem
+              Ipsum passages, and more recently with desktop publishing software
+              like Aldus PageMaker including versions of Lorem Ipsum.
+            </p>
+            {abc && (
+              <div className="icons">
+                <span>
+                  <FiHeart />
+                  10
+                </span>
+                <span>
+                  <FiMessageCircle />
+                  10
+                </span>
+                <span>
+                  <FiSend />
+                  10
+                </span>
+              </div>
+            )}
+          </div>
+        </Content>
+        <Content>
+          <img src={logoImg} alt="Lorem Ipsum" />
+          <div className="content">
+            <strong>
+              Lorem Ipsum
+              <span> @lorem_ipsum </span>
+              <span className="separator" />
+              <span> 5 m </span>
+            </strong>
+            <p>
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry.Lorem Ipsum has been the industry is standard dummy text
+              ever since the 1500 s, when an unknown printer took a galley of
+              type and scrambled it to make a type specimen book.It has survived
+              not only five centuries, but also the leap into electronic
+              typesetting, remaining essentially unchanged.It was popularised in
+              the 1960 s with the release of Letraset sheets containing Lorem
+              Ipsum passages, and more recently with desktop publishing software
+              like Aldus PageMaker including versions of Lorem Ipsum.
+            </p>
+            {abc && (
+              <div className="icons">
+                <span>
+                  <FiHeart />
+                  10
+                </span>
+                <span>
+                  <FiMessageCircle />
+                  10
+                </span>
+                <span>
+                  <FiSend />
+                  10
+                </span>
+              </div>
+            )}
+          </div>
+        </Content>
       </ContentGroup>
       <Footer>
         <FiHome size={20} />

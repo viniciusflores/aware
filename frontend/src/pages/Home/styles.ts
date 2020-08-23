@@ -28,6 +28,10 @@ export const Header = styled.header`
     background: #312e38;
     border-radius: 50%;
   }
+
+  a {
+    text-decoration: none;
+  }
 `
 
 export const ContentGroup = styled.div``
@@ -35,7 +39,7 @@ export const ContentGroup = styled.div``
 export const Content = styled.div`
   display: flex;
   margin: 10px 10px 0;
-/* position: relative;
+  /* position: relative;
   min-height: 100%;
   flex: 0; */
   img {
