@@ -36,12 +36,12 @@ class PostsRepository implements IPostsRepository {
     longitude,
     visibility,
     range,
-  }: IFindPostByCoordinatesDTO): Promise<Post[]> {
+  }: IFindPostByCoordinatesDTO): Promise<Post[] | undefined> {
     const posts: Post[] = await this.ormRepository.find({
       where: {
         latitude,
         longitude,
-        visibility: 'public',
+        visibility,
       },
     })
 

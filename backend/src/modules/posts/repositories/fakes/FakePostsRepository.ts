@@ -5,7 +5,7 @@ import Post from '@modules/posts/infra/typeorm/entities/Post'
 import IFindPostByCoordinatesDTO from '@modules/posts/dtos/IFindPostByCoordinatesDTO'
 
 class FakePostsRepository implements IPostsRepository {
-  private appointments: Post[] = []
+  private postsDb: Post[] = []
 
   public async create({
     user_id,
@@ -25,17 +25,24 @@ class FakePostsRepository implements IPostsRepository {
       longitude,
     })
 
-    this.appointments.push(post)
+    this.postsDb.push(post)
 
     return post
   }
 
   public async listByCoordinates(
     data: IFindPostByCoordinatesDTO,
-  ): Promise<Post[]> {
-    return this.appointments.filter(a => {
-      a.latitude === data.latitude && a.longitude === data.longitude
+  ): Promise<Post[] | undefined> {
+    console.log(this.postsDb)
+    const posts = this.postsDb.filter(post => {
+      return (
+        post.latitude === data.latitude &&
+        post.longitude === data.longitude &&
+        post.visibility === data.visibility
+      )
     })
+
+    return posts
   }
 }
 

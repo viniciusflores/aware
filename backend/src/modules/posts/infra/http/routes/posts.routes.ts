@@ -26,8 +26,8 @@ postsRouter.get(
   '/',
   celebrate({
     [Segments.BODY]: {
-      latitude: Joi.string().required(),
-      longitude: Joi.string().required(),
+      latitude: Joi.required(),
+      longitude: Joi.required(),
       visibility: Joi.string(),
     },
   }),

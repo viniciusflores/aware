@@ -4,5 +4,7 @@ import IFindPostByCoordinatesDTO from '@modules/posts/dtos/IFindPostByCoordinate
 
 export default interface IPostsRepository {
   create(data: ICreatePostDTO): Promise<Post>
-  listByCoordinates(data: IFindPostByCoordinatesDTO): Promise<Post[]>
+  listByCoordinates(
+    data: IFindPostByCoordinatesDTO,
+  ): Promise<Post[] | undefined>
 }

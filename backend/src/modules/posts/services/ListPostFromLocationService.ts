@@ -3,8 +3,8 @@ import Post from '@modules/posts/infra/typeorm/entities/Post'
 import IPostRepository from '@modules/posts/repositories/IPostsRepository'
 
 interface IRequest {
-  latitude: string
-  longitude: string
+  latitude: number
+  longitude: number
   visibility: 'public' | 'friends' | 'private'
   range: string
 }
@@ -20,7 +20,7 @@ class ListPostFromLocationService {
     longitude,
     visibility,
     range,
-  }: IRequest): Promise<Post[]> {
+  }: IRequest): Promise<Post[] | undefined> {
     const posts = await this.postsRepository.listByCoordinates({
       latitude,
       longitude,

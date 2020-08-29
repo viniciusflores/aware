@@ -27,11 +27,11 @@ export default class createPosts1597108510425 implements MigrationInterface {
           },
           {
             name: 'latitude',
-            type: 'varchar',
+            type: 'float',
           },
           {
             name: 'longitude',
-            type: 'varchar',
+            type: 'float',
           },
           {
             name: 'created_at',

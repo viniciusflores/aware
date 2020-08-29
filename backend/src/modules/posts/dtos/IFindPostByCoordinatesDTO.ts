@@ -1,6 +1,6 @@
 export default interface IFindPostByCoordinatesDTO {
-  latitude: string
-  longitude: string
+  latitude: number
+  longitude: number
   visibility: 'public' | 'friends' | 'private'
   range: string
 }

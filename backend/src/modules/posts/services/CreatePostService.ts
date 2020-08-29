@@ -6,8 +6,8 @@ interface IRequest {
   user_id: string
   content: string
   visibility: 'public' | 'friends' | 'private'
-  latitude: string
-  longitude: string
+  latitude: number
+  longitude: number
 }
 
 @injectable()
@@ -28,8 +28,8 @@ class CreatePostService {
       user_id,
       content,
       visibility,
-      latitude: String(latitude),
-      longitude: String(longitude),
+      latitude,
+      longitude,
     })
 
     return post

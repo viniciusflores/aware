@@ -28,11 +28,11 @@ class Post {
   @Column('varchar')
   visibility: string
 
-  @Column('varchar')
-  latitude: string
+  @Column('float')
+  latitude: number
 
-  @Column('varchar')
-  longitude: string
+  @Column('float')
+  longitude: number
 
   @CreateDateColumn()
   created_at: Date
