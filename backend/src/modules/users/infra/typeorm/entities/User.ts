@@ -17,6 +17,9 @@ class User {
   name: string
 
   @Column('varchar')
+  account: string
+
+  @Column('varchar')
   email: string
 
   @Column('varchar')

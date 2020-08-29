@@ -18,7 +18,7 @@ export default class createUser1596946178781 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'profile_id',
+            name: 'account',
             type: 'varchar',
             isUnique: true,
           },

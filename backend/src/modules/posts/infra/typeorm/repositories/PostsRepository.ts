@@ -4,7 +4,7 @@ import ICreateTopicDTO from '@modules/topics/dtos/ICreateTopicDTO'
 import Topic from '@modules/topics/infra/typeorm/entities/Topics'
 import IFindTopicByCoordinatesDTO from '@modules/topics/dtos/IFindTopicByCoordinatesDTO'
 
-class TopicsRepositories implements ITopicsRepository {
+class PostsRepository implements ITopicsRepository {
   private ormRepository: Repository<Topic>
 
   constructor() {
@@ -48,4 +48,4 @@ class TopicsRepositories implements ITopicsRepository {
   }
 }
 
-export default TopicsRepositories
+export default PostsRepository

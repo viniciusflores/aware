@@ -22,6 +22,7 @@ describe('AuthenticateUser', () => {
   it('Should be able to authenticate', async () => {
     const user = await fakeUsersRepository.create({
       name: 'John Doe',
+      account: '@johndoe',
       email: 'johndoe@example.com',
       password: '123456',
     })
@@ -47,6 +48,7 @@ describe('AuthenticateUser', () => {
   it('Should not be able to authenticate with wrong password', async () => {
     await fakeUsersRepository.create({
       name: 'John Doe',
+      account: '@johndoe',
       email: 'johndoe@example.com',
       password: '123456',
     })
