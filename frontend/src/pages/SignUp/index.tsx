@@ -1,5 +1,5 @@
 import React, { useCallback, useRef } from 'react'
-import { FiMail, FiLock, FiUser } from 'react-icons/fi'
+import { FiMail, FiLock, FiUser, FiAtSign } from 'react-icons/fi'
 import { Link, useHistory } from 'react-router-dom'
 import { FormHandles } from '@unform/core'
 import { Form } from '@unform/web'
@@ -32,6 +32,7 @@ const SignUp: React.FC = () => {
 
         const schema = Yup.object().shape({
           name: Yup.string().required('Name required'),
+          account: Yup.string().required('Account profile @ required'),
           email: Yup.string()
             .required('E-mail required')
             .email('Fill a e-mail valid'),
@@ -82,6 +83,7 @@ const SignUp: React.FC = () => {
           <h1>Create your account</h1>
 
           <Input name="name" icon={FiUser} placeholder="Name" />
+          <Input name="account" icon={FiAtSign} placeholder="Profile @" />
           <Input name="email" icon={FiMail} placeholder="E-mail" type="email" />
           <Input
             name="password"

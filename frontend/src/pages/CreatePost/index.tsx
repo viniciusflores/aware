@@ -43,15 +43,22 @@ const Home: React.FC = () => {
   }, [])
 
   const handlePostAction = useCallback(async () => {
-    console.log(`o conteudo: ${postContent}`)
-
-    const dataPost = {
-      content: postContent,
-      latitude,
-      longitude,
+    if (postContent.length <= 0) {
+      return
     }
 
-    await api.post('/topics', dataPost)
+    try {
+      const dataPost = {
+        content: postContent,
+        latitude,
+        longitude,
+        visibility: 'public',
+      }
+
+      await api.post('/posts', dataPost)
+    } catch (error) {
+      console.log(error.message)
+    }
   }, [postContent])
 
   const handlePostContent = useCallback(e => {
