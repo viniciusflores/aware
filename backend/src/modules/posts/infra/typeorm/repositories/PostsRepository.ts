@@ -1,29 +1,29 @@
 import { Repository, getRepository } from 'typeorm'
-import ITopicsRepository from '@modules/topics/repositories/ITopicsRepository'
-import ICreateTopicDTO from '@modules/topics/dtos/ICreateTopicDTO'
-import Topic from '@modules/topics/infra/typeorm/entities/Topics'
-import IFindTopicByCoordinatesDTO from '@modules/topics/dtos/IFindTopicByCoordinatesDTO'
+import IPostsRepository from '@modules/posts/repositories/IPostsRepository'
+import ICreatePostDTO from '@modules/posts/dtos/ICreatePostDTO'
+import Post from '@modules/posts/infra/typeorm/entities/Post'
+import IFindPostByCoordinatesDTO from '@modules/posts/dtos/IFindPostByCoordinatesDTO'
 
-class PostsRepository implements ITopicsRepository {
-  private ormRepository: Repository<Topic>
+class PostsRepository implements IPostsRepository {
+  private ormRepository: Repository<Post>
 
   constructor() {
-    this.ormRepository = getRepository(Topic)
+    this.ormRepository = getRepository(Post)
   }
 
   public async create({
     user_id,
     content,
+    visibility,
     latitude,
     longitude,
-    date,
-  }: ICreateTopicDTO): Promise<Topic> {
+  }: ICreatePostDTO): Promise<Post> {
     const topic = this.ormRepository.create({
       user_id,
       content,
+      visibility,
       latitude,
       longitude,
-      date,
     })
 
     await this.ormRepository.save(topic)
@@ -34,17 +34,18 @@ class PostsRepository implements ITopicsRepository {
   public async listByCoordinates({
     latitude,
     longitude,
+    visibility,
     range,
-  }: IFindTopicByCoordinatesDTO): Promise<Topic[]> {
-    let topics: Topic[]
-    topics = await this.ormRepository.find({
+  }: IFindPostByCoordinatesDTO): Promise<Post[]> {
+    const posts: Post[] = await this.ormRepository.find({
       where: {
         latitude,
         longitude,
+        visibility: 'public',
       },
     })
 
-    return topics
+    return posts
   }
 }
 

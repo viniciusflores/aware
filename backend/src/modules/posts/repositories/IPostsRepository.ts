@@ -1,8 +1,8 @@
-import Topics from '@modules/topics/infra/typeorm/entities/Topics'
-import ICreateTopicDTO from '@modules/topics/dtos/ICreateTopicDTO'
-import IFindTopicByCoordinatesDTO from '../dtos/IFindTopicByCoordinatesDTO'
+import Post from '@modules/posts/infra/typeorm/entities/Post'
+import ICreatePostDTO from '@modules/posts/dtos/ICreatePostDTO'
+import IFindPostByCoordinatesDTO from '@modules/posts/dtos/IFindPostByCoordinatesDTO'
 
 export default interface IPostsRepository {
-  create(data: ICreateTopicDTO): Promise<Topics>
-  listByCoordinates(data: IFindTopicByCoordinatesDTO): Promise<Topics[]>
+  create(data: ICreatePostDTO): Promise<Post>
+  listByCoordinates(data: IFindPostByCoordinatesDTO): Promise<Post[]>
 }

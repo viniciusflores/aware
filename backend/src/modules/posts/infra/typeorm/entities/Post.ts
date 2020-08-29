@@ -10,8 +10,8 @@ import {
 
 import User from '@modules/users/infra/typeorm/entities/User'
 
-@Entity('topics')
-class Topics {
+@Entity('posts')
+class Post {
   @PrimaryGeneratedColumn()
   id: string
 
@@ -26,13 +26,13 @@ class Topics {
   content: string
 
   @Column('varchar')
+  visibility: string
+
+  @Column('varchar')
   latitude: string
 
   @Column('varchar')
   longitude: string
-
-  @Column('timestamp with time zone')
-  date: Date
 
   @CreateDateColumn()
   created_at: Date
@@ -41,4 +41,4 @@ class Topics {
   updated_at: Date
 }
 
-export default Topics
+export default Post
