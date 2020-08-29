@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { FiGlobe, FiArrowLeft } from 'react-icons/fi'
 import logoImg from '../../assets/laranjo.png'
 import { Container, Header, Content } from './styles'
-import { useAuth } from '../../hooks/auth'
+import { useToast } from '../../hooks/toast'
 import api from '../../services/api'
 
 const Home: React.FC = () => {
-  const { user } = useAuth()
+  const history = useHistory()
+  const { addToast } = useToast()
   const [locationPermission, setLocationPermission] = useState(false)
   const [accuracy, setAccuracy] = useState(0)
   const [latitude, setLatitude] = useState(0)
@@ -56,10 +57,16 @@ const Home: React.FC = () => {
       }
 
       await api.post('/posts', dataPost)
+      history.push('/')
     } catch (error) {
-      console.log(error.message)
+      addToast({
+        type: 'error',
+        title: 'Error make you post',
+        description:
+          'An error occurred while posting, check your data and try again.',
+      })
     }
-  }, [postContent])
+  }, [postContent, history, addToast, latitude, longitude])
 
   const handlePostContent = useCallback(e => {
     const abc = e.target.value
