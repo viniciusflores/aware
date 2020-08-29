@@ -18,18 +18,21 @@ describe('CreateUser', () => {
   it('Should be able to create a new user', async () => {
     const user = await createUser.execute({
       name: 'John Doe',
+      account: '@johndoe',
       email: 'johndoe@example.com',
       password: '123456',
     })
 
     expect(user).toHaveProperty('id')
     expect(user.name).toBe('John Doe')
+    expect(user.account).toBe('@johndoe')
     expect(user.email).toBe('johndoe@example.com')
   })
 
   it('Should not be able to create a new user with same email from another', async () => {
     await createUser.execute({
       name: 'John Doe',
+      account: '@johndoe',
       email: 'johndoe@example.com',
       password: '123456',
     })
@@ -37,7 +40,26 @@ describe('CreateUser', () => {
     await expect(
       createUser.execute({
         name: 'John Doe',
+        account: '@johndoe',
         email: 'johndoe@example.com',
+        password: '123456',
+      }),
+    ).rejects.toBeInstanceOf(AppError)
+  })
+
+  it('Should not be able to create a new user with same account profile from another', async () => {
+    await createUser.execute({
+      name: 'John Doe',
+      account: '@johndoe',
+      email: 'johndoe@example.com',
+      password: '123456',
+    })
+
+    await expect(
+      createUser.execute({
+        name: 'John Doe',
+        account: '@johndoe',
+        email: 'johntre@example.com',
         password: '123456',
       }),
     ).rejects.toBeInstanceOf(AppError)

@@ -1,12 +1,101 @@
-import React from 'react'
-import { Container } from './styles'
+import React, { useState, useEffect, useCallback } from 'react'
+import { Link, useHistory } from 'react-router-dom'
+import { FiGlobe, FiArrowLeft } from 'react-icons/fi'
+import logoImg from '../../assets/laranjo.png'
+import { Container, Header, Content } from './styles'
+import { useToast } from '../../hooks/toast'
+import api from '../../services/api'
 
-const CreatePost: React.FC = () => {
+const Home: React.FC = () => {
+  const history = useHistory()
+  const { addToast } = useToast()
+  const [locationPermission, setLocationPermission] = useState(false)
+  const [accuracy, setAccuracy] = useState(0)
+  const [latitude, setLatitude] = useState(0)
+  const [longitude, setLongitude] = useState(0)
+  const [postContent, setPostContent] = useState('')
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+        setLocationPermission(true)
+        setAccuracy(position.coords.accuracy)
+        setLatitude(position.coords.latitude)
+        setLongitude(position.coords.longitude)
+      },
+      function showError(error) {
+        setLocationPermission(false)
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            console.log('User denied the request for Geolocation.')
+            break
+          case error.POSITION_UNAVAILABLE:
+            console.log('Location information is unavailable.')
+            break
+          case error.TIMEOUT:
+            console.log('The request to get user location timed out.')
+            break
+          default:
+            console.log('The request to get user location error default')
+            break
+        }
+      },
+    )
+  }, [])
+
+  const handlePostAction = useCallback(async () => {
+    if (postContent.length <= 0) {
+      return
+    }
+
+    try {
+      const dataPost = {
+        content: postContent,
+        latitude,
+        longitude,
+        visibility: 'public',
+      }
+
+      await api.post('/posts', dataPost)
+      history.push('/')
+    } catch (error) {
+      addToast({
+        type: 'error',
+        title: 'Error make you post',
+        description:
+          'An error occurred while posting, check your data and try again.',
+      })
+    }
+  }, [postContent, history, addToast, latitude, longitude])
+
+  const handlePostContent = useCallback(e => {
+    const abc = e.target.value
+    setPostContent(abc)
+  }, [])
+
   return (
     <Container>
-      <h1>Create Post Page</h1>
+      <Header>
+        <Link to="/">
+          <FiArrowLeft size={20} />
+        </Link>
+
+        <button type="button" onClick={handlePostAction}>
+          Post
+        </button>
+      </Header>
+      <Content>
+        <img src={logoImg} alt="Lorem Ipsum" />
+        <div className="content">
+          <input placeholder="What's happening?" onChange={handlePostContent} />
+          <div>
+            <FiGlobe />
+            Everyone can reply
+          </div>
+        </div>
+      </Content>
     </Container>
   )
 }
 
-export default CreatePost
+export default Home

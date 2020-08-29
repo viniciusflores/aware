@@ -7,6 +7,7 @@ import IHashProvider from '@modules/users/providers/HashProvider/models/IHashPro
 
 interface IRequest {
   name: string
+  account: string
   email: string
   password: string
 }
@@ -15,20 +16,32 @@ interface IRequest {
 class CreateUserService {
   constructor(
     @inject('UsersRepository') private usersRepository: IUsersRepository,
-    @inject('HashProvider') private hashprovider: IHashProvider,
+    @inject('HashProvider') private hashProvider: IHashProvider,
   ) {}
 
-  public async execute({ name, email, password }: IRequest): Promise<User> {
+  public async execute({
+    name,
+    account,
+    email,
+    password,
+  }: IRequest): Promise<User> {
     const checkUserExists = await this.usersRepository.findByEmail(email)
 
     if (checkUserExists) {
       throw new AppError('Email address already used.')
     }
 
-    const hashedPassword = await this.hashprovider.generateHash(password)
+    const checkAccountExists = await this.usersRepository.findByAccount(account)
+
+    if (checkAccountExists) {
+      throw new AppError('Account profile already used.')
+    }
+
+    const hashedPassword = await this.hashProvider.generateHash(password)
 
     const user = await this.usersRepository.create({
       name,
+      account,
       email,
       password: hashedPassword,
     })

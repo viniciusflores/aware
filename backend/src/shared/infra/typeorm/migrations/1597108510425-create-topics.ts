@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm'
 
-export default class createTopics1597108510425 implements MigrationInterface {
+export default class createPosts1597108510425 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'topics',
+        name: 'posts',
         columns: [
           {
             name: 'id',
@@ -22,17 +22,16 @@ export default class createTopics1597108510425 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'latitude',
+            name: 'visibility',
             type: 'varchar',
+          },
+          {
+            name: 'latitude',
+            type: 'float',
           },
           {
             name: 'longitude',
-            type: 'varchar',
-          },
-          {
-            name: 'date',
-            type: 'timestamp',
-            default: 'now()',
+            type: 'float',
           },
           {
             name: 'created_at',
@@ -47,7 +46,7 @@ export default class createTopics1597108510425 implements MigrationInterface {
         ],
         foreignKeys: [
           {
-            name: 'TopicUser',
+            name: 'PostUser',
             referencedTableName: 'users',
             referencedColumnNames: ['id'],
             columnNames: ['user_id'],
@@ -60,6 +59,6 @@ export default class createTopics1597108510425 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('topics')
+    await queryRunner.dropTable('posts')
   }
 }
