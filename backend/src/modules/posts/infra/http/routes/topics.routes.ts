@@ -14,9 +14,8 @@ topicsRouter.post(
   celebrate({
     [Segments.BODY]: {
       content: Joi.string().required(),
-      latitude: Joi.string().required(),
-      longitude: Joi.string().required(),
-      date: Joi.date().required(),
+      latitude: Joi.required(),
+      longitude: Joi.required(),
     },
   }),
   topicsController.create,

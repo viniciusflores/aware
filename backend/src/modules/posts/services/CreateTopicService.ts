@@ -7,7 +7,6 @@ interface IRequest {
   content: string
   latitude: string
   longitude: string
-  date: Date
 }
 
 @injectable()
@@ -22,14 +21,12 @@ class CreateTopicService {
     content,
     latitude,
     longitude,
-    date,
   }: IRequest): Promise<Topic> {
     const topic = await this.topicsRepository.create({
       user_id,
       content,
-      latitude,
-      longitude,
-      date,
+      latitude: String(latitude),
+      longitude: String(longitude),
     })
 
     return topic

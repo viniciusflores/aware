@@ -6,7 +6,7 @@ import ListTopicFromLocationService from '@modules/topics/services/ListTopicFrom
 export default class TopicsController {
   public async create(request: Request, response: Response): Promise<Response> {
     const user_id = request.user.id
-    const { content, latitude, longitude, date } = request.body
+    const { content, latitude, longitude } = request.body
 
     const createTopicService = container.resolve(CreateTopicService)
 
@@ -15,7 +15,6 @@ export default class TopicsController {
       content,
       latitude,
       longitude,
-      date,
     })
 
     return response.json(topic)

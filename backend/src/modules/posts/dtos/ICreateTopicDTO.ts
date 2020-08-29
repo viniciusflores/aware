@@ -3,5 +3,4 @@ export default interface ICreateTopicDTO {
   content: string
   latitude: string
   longitude: string
-  date: Date
 }

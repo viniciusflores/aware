@@ -1,10 +1,13 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { FiGlobe, FiArrowLeft } from 'react-icons/fi'
 import logoImg from '../../assets/laranjo.png'
 import { Container, Header, Content } from './styles'
+import { useAuth } from '../../hooks/auth'
+import api from '../../services/api'
 
 const Home: React.FC = () => {
+  const { user } = useAuth()
   const [locationPermission, setLocationPermission] = useState(false)
   const [accuracy, setAccuracy] = useState(0)
   const [latitude, setLatitude] = useState(0)
@@ -39,8 +42,16 @@ const Home: React.FC = () => {
     )
   }, [])
 
-  const handlePostAction = useCallback(() => {
-    console.log(postContent)
+  const handlePostAction = useCallback(async () => {
+    console.log(`o conteudo: ${postContent}`)
+
+    const dataPost = {
+      content: postContent,
+      latitude,
+      longitude,
+    }
+
+    await api.post('/topics', dataPost)
   }, [postContent])
 
   const handlePostContent = useCallback(e => {
