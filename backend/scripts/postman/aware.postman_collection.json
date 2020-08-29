@@ -1,0 +1,246 @@
+{
+	"info": {
+		"_postman_id": "294d9e1f-b05d-4290-80a0-27842f231133",
+		"name": "aware",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "create user",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "94296c7d-c443-4234-8204-18470fff895b",
+								"exec": [
+									"pm.environment.set(\"user_name\", \"Vinicius\");",
+									"pm.environment.set(\"user_email\", pm.environment.get(\"user_name\") + _.random(0001, 9999) + \"@email.com\")",
+									"pm.environment.set(\"user_account\", \"@\" + pm.environment.get(\"user_name\") + _.random(0001, 9999))",
+									"pm.environment.set(\"user_password\", \"123456\");",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "c031d2a7-ead9-457f-93e4-b710bbc6d3ea",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.environment.set(\"user_id\", jsonData.id);",
+									"pm.environment.set(\"user_name\", jsonData.name);",
+									"pm.environment.set(\"user_email\", jsonData.email);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"{{user_name}}\",\n    \"account\":\"{{user_account}}\",\n\t\"email\":\"{{user_email}}\",\n\t\"password\":\"{{user_password}}\" \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Authenticate User",
+			"item": [
+				{
+					"name": "create session",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cc29576e-227e-40ff-aead-70fab45131aa",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.environment.set(\"user_token\", jsonData.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\":\"{{user_email}}\",\n\t\"password\":\"{{user_password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/sessions",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"sessions"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "create post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "908c6df1-ad23-4f0a-8cd8-4fa5fb2abd7e",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.environment.set(\"random_latitude\", jsonData.latitude);",
+									"pm.environment.set(\"random_longitude\", jsonData.longitude);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "81ed794e-07f5-4139-96a4-f29353c52c95",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"content\":\"Conteudo do aware topico\",\n    \"visibility\": \"public\",\n    \"latitude\":\"{{$randomLatitude}}\",\n    \"longitude\":\"{{$randomLatitude}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/posts",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list posts by coordinate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "675b5cb9-a1a0-43c1-b54d-291356b38ed9",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "9d3895a2-c16a-43f4-a3d6-e26c22ada0f9",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"latitude\":\"{{random_latitude}}\",\n    \"longitude\":\"{{random_longitude}}\",\n    \"visibility\": \"public\",\n    \"range\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/posts",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
