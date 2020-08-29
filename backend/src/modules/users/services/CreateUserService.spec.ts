@@ -46,4 +46,22 @@ describe('CreateUser', () => {
       }),
     ).rejects.toBeInstanceOf(AppError)
   })
+
+  it('Should not be able to create a new user with same account profile from another', async () => {
+    await createUser.execute({
+      name: 'John Doe',
+      account: '@johndoe',
+      email: 'johndoe@example.com',
+      password: '123456',
+    })
+
+    await expect(
+      createUser.execute({
+        name: 'John Doe',
+        account: '@johndoe',
+        email: 'johntre@example.com',
+        password: '123456',
+      }),
+    ).rejects.toBeInstanceOf(AppError)
+  })
 })

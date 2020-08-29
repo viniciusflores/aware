@@ -16,7 +16,7 @@ interface IRequest {
 class CreateUserService {
   constructor(
     @inject('UsersRepository') private usersRepository: IUsersRepository,
-    @inject('HashProvider') private hashprovider: IHashProvider,
+    @inject('HashProvider') private hashProvider: IHashProvider,
   ) {}
 
   public async execute({
@@ -31,7 +31,13 @@ class CreateUserService {
       throw new AppError('Email address already used.')
     }
 
-    const hashedPassword = await this.hashprovider.generateHash(password)
+    const checkAccountExists = await this.usersRepository.findByAccount(account)
+
+    if (checkAccountExists) {
+      throw new AppError('Account profile already used.')
+    }
+
+    const hashedPassword = await this.hashProvider.generateHash(password)
 
     const user = await this.usersRepository.create({
       name,

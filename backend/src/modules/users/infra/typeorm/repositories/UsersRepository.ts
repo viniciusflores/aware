@@ -20,6 +20,11 @@ class UsersRepository implements IUserRepository {
     return user
   }
 
+  public async findByAccount(account: string): Promise<User | undefined> {
+    const user = await this.ormRepository.findOne({ where: { account } })
+    return user
+  }
+
   public async create(userData: ICreateUserDTO): Promise<User> {
     const user = this.ormRepository.create(userData)
 
