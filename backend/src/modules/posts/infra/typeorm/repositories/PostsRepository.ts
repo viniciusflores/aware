@@ -18,7 +18,7 @@ class PostsRepository implements IPostsRepository {
     latitude,
     longitude,
   }: ICreatePostDTO): Promise<Post> {
-    const topic = this.ormRepository.create({
+    const post = this.ormRepository.create({
       user_id,
       content,
       visibility,
@@ -26,9 +26,9 @@ class PostsRepository implements IPostsRepository {
       longitude,
     })
 
-    await this.ormRepository.save(topic)
+    await this.ormRepository.save(post)
 
-    return topic
+    return post
   }
 
   public async listByCoordinates({

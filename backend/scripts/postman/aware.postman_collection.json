@@ -158,7 +158,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"content\":\"Conteudo do aware topico\",\n    \"visibility\": \"public\",\n    \"latitude\":\"{{$randomLatitude}}\",\n    \"longitude\":\"{{$randomLatitude}}\"\n}",
+							"raw": "{\n\t\"content\":\"Conteudo do aware post\",\n    \"visibility\": \"public\",\n    \"latitude\":\"{{$randomLatitude}}\",\n    \"longitude\":\"{{$randomLatitude}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
