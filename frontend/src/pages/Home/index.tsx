@@ -12,7 +12,14 @@ import {
   FiSend,
 } from 'react-icons/fi'
 import logoImg from '../../assets/laranjo.png'
-import { Container, Header, ContentGroup, Content, Footer } from './styles'
+import {
+  Container,
+  Header,
+  ContentGroup,
+  Content,
+  EmptyPostList,
+  Footer,
+} from './styles'
 
 interface IPostContent {
   id: string
@@ -27,7 +34,6 @@ interface IPostContent {
 }
 
 const Home: React.FC = () => {
-  const abc = false
   const defaultPost: IPostContent[] = [
     {
       id: '123',
@@ -52,6 +58,9 @@ const Home: React.FC = () => {
       created_at: '2020-08-29T21:12:59.368Z',
     },
   ]
+
+  const defaultPost2: IPostContent[] = []
+
   const [locationPermission, setLocationPermission] = useState(false)
   const [accuracy, setAccuracy] = useState(0)
   const [latitude, setLatitude] = useState(0)
@@ -96,18 +105,19 @@ const Home: React.FC = () => {
         </Link>
       </Header>
       <ContentGroup>
-        {listPosts.map(post => (
-          <Content key={post.id}>
-            <img src={logoImg} alt="Lorem Ipsum" />
-            <div className="content">
-              <strong>
-                {post.user_name}
-                <span> {post.user_account} </span>
-                <span className="separator" />
-                <span> 5 m </span>
-              </strong>
-              <p>{post.content}</p>
-              {abc && (
+        {listPosts.length > 0 ? (
+          listPosts.map(post => (
+            <Content key={post.id}>
+              <img src={logoImg} alt="Lorem Ipsum" />
+              <div className="content">
+                <strong>
+                  {post.user_name}
+                  <span> {post.user_account} </span>
+                  <span className="separator" />
+                  <span> 5 m </span>
+                </strong>
+                <p>{post.content}</p>
+
                 <div className="icons">
                   <span>
                     <FiHeart />
@@ -122,10 +132,15 @@ const Home: React.FC = () => {
                     10
                   </span>
                 </div>
-              )}
-            </div>
-          </Content>
-        ))}
+              </div>
+            </Content>
+          ))
+        ) : (
+          <EmptyPostList>
+            <strong>Ops!</strong>
+            <p>Sorry, we did not find content in your location</p>
+          </EmptyPostList>
+        )}
       </ContentGroup>
       <Footer>
         <FiHome size={20} />
@@ -138,45 +153,3 @@ const Home: React.FC = () => {
 }
 
 export default Home
-
-/*
-        <Content>
-          <img src={logoImg} alt="Lorem Ipsum" />
-          <div className="content">
-            <strong>
-              Lorem Ipsum
-              <span> @lorem_ipsum </span>
-              <span className="separator" />
-              <span> 5 m </span>
-            </strong>
-            <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry.Lorem Ipsum has been the industry is standard dummy text
-              ever since the 1500 s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book.It has survived
-              not only five centuries, but also the leap into electronic
-              typesetting, remaining essentially unchanged.It was popularised in
-              the 1960 s with the release of Letraset sheets containing Lorem
-              Ipsum passages, and more recently with desktop publishing software
-              like Aldus PageMaker including versions of Lorem Ipsum.
-            </p>
-            {abc && (
-              <div className="icons">
-                <span>
-                  <FiHeart />
-                  10
-                </span>
-                <span>
-                  <FiMessageCircle />
-                  10
-                </span>
-                <span>
-                  <FiSend />
-                  10
-                </span>
-              </div>
-            )}
-          </div>
-
-        </Content>
-*/

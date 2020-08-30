@@ -112,3 +112,17 @@ export const Footer = styled.footer`
     margin-top: 10px;
   }
 `
+
+export const EmptyPostList = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* margin-top: 20px; */
+
+  strong {
+    font-size: 24;
+    font-weight: bold;
+    /* margin-bottom: 10px; */
+    margin: 20px 0 10px 0;
+  }
+`
